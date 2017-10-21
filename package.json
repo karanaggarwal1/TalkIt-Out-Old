@@ -1,0 +1,27 @@
+{
+  "name": "talkit-out",
+  "version": "1.0.0",
+  "description": "Not your usual Search Engine",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "firebase": "^4.6.0",
+    "mongoose": "^4.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karanaggarwal1/TalkIt-Out.git"
+  },
+  "author": "Karan Aggarwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karanaggarwal1/TalkIt-Out/issues"
+  },
+  "homepage": "https://github.com/karanaggarwal1/TalkIt-Out#readme"
+}
