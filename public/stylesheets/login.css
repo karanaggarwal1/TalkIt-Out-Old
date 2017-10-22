@@ -1,0 +1,20 @@
+input {
+    width: 40%;
+    text-align: left;
+    
+}
+
+.jumbotron {
+    width:70%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.loginButtons {
+    text-align: center;
+}
+
+.btn {
+    width:50%;
+    margin:5px;
+}

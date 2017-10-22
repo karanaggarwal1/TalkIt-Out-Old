@@ -11,7 +11,13 @@ app.get("/",function(req,res){
    res.render("landing"); 
 });
 
+app.get("/login",function(req,res){
+    res.render("auth/login");
+});
 
+app.get("/register", function(req,res){
+    res.render("auth/register");
+});
 
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("Server Started");
