@@ -1,6 +1,11 @@
+var firebase = require("firebase");
+
 var middleware = {};
+
+
 middleware.isLoggedIn = function(req, res, next) {
-    if (req.isAuthenticated()) {
+    var user = firebase.auth().currentUser;
+    if (user) {
         return next();
     }
     res.redirect("/login");

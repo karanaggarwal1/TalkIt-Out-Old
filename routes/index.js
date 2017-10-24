@@ -2,6 +2,8 @@ var express = require("express"),
     router = express.Router(),
     firebase = require("firebase");
 
+var middleware = require("../middleware");
+
 router.get("/login", function(req, res) {
     res.render("auth/login");
 });
@@ -27,7 +29,7 @@ router.post("/register", function(req, res) {
             displayName: firstName + " " + lastName
         }).then(function() {
             firebase.auth().signInWithEmailAndPassword(emailAddress, password).then((user) => {
-                res.redirect("/");
+                res.redirect("/register/" + user.uid);
             })
         }, function(error) {
             console.log(error);
@@ -39,6 +41,10 @@ router.post("/register", function(req, res) {
 
 router.get("/", function(req, res) {
     res.render("landing");
+});
+
+router.get("/register/:id", middleware.isLoggedIn, function(req, res) {
+    res.render("users/preferences", { user: firebase.auth().currentUser });
 });
 
 module.exports = router;

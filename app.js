@@ -3,15 +3,16 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     firebase = require("firebase");
 
-var middleware = require("./middleware"),
-    config = require("./services"),
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+
+var config = require("./services"),
     indexRoutes = require("./routes");
 
 firebase.initializeApp(config);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+
 
 app.use("/", indexRoutes);
 
