@@ -1,24 +1,20 @@
-var express     = require("express"),
-    app         = express(),
-    bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose");
-    
-app.use(bodyParser.urlencoded({extended: true}));
+var express = require("express"),
+    app = express(),
+    bodyParser = require("body-parser"),
+    firebase = require("firebase");
+
+var middleware = require("./middleware"),
+    config = require("./services"),
+    indexRoutes = require("./routes");
+
+firebase.initializeApp(config);
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
-app.get("/",function(req,res){
-   res.render("landing"); 
-});
+app.use("/", indexRoutes);
 
-app.get("/login",function(req,res){
-    res.render("auth/login");
-});
-
-app.get("/register", function(req,res){
-    res.render("auth/register");
-});
-
-app.listen(process.env.PORT,process.env.IP,function(){
+app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Server Started");
 });

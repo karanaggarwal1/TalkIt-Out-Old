@@ -1,0 +1,17 @@
+.input {
+    width: 100%;
+    text-align: left;
+    background-color: blue;
+}
+
+.rightButton {
+    text-align: right;
+    float: right;
+}
+
+.jumbotron {
+    width:70%;
+    margin: 0 auto;
+    text-align: left;
+}
+
