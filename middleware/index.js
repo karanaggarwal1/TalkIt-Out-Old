@@ -11,4 +11,12 @@ middleware.isLoggedIn = function(req, res, next) {
     res.redirect("/login");
 }
 
+middleware.isAuthenticatedUser = function(req, res, next) {
+    var uid = firebase.auth().currentUser.uid;
+    if (res.originalUrl === "/register/" + uid) {
+        return next();
+    }
+    res.redirect("/");
+}
+
 module.exports = middleware;

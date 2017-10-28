@@ -5,7 +5,8 @@ var express = require("express"),
 var middleware = require("../middleware");
 
 router.get("/login", function(req, res) {
-    res.render("auth/login");
+    var socVar;
+    res.render("auth/login", { socVar: socVar, res: res });
 });
 
 router.post("/login", function(req, res) {
@@ -15,6 +16,8 @@ router.post("/login", function(req, res) {
         res.render("landing.ejs");
     }).catch(function(error) {
         console.log(error);
+        res.redirect("/login");
+
     });
 });
 
@@ -43,7 +46,12 @@ router.get("/", function(req, res) {
     res.render("landing");
 });
 
-router.get("/register/:id", middleware.isLoggedIn, function(req, res) {
+
+router.get("/register/:id", [middleware.isLoggedIn, middleware.isAuthenticatedUser], function(req, res) {
+    res.render("users/preferences", { user: firebase.auth().currentUser });
+});
+
+router.post("/register/:id", [middleware.isLoggedIn, middleware.isAuthenticatedUser], function(req, res) {
     res.render("users/preferences", { user: firebase.auth().currentUser });
 });
 

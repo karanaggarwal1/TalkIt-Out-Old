@@ -1,5 +1,6 @@
 <% include ../partials/header %>
     <link rel="stylesheet" href="stylesheets/login.css"/>
+<% include ../partials/firebase %>
 <% include ../partials/navbar %>
     <div class="jumbotron">
       <h1 class="display-3"><center>Login</center></h1>
@@ -17,22 +18,22 @@
               </div>
           </div>
           <div class="loginButtons">
-              <input type="submit" class="btn btn-lg btn-primary" value="Login" >
-              </input>
-              <br>
-              <a class="btn btn-lg btn-social btn-facebook">
-                <span class="fa fa-facebook"></span> Sign in with Facebook
+            <input type="submit" class="btn btn-lg btn-primary" value="Login" >
+            </input>
+            <br>
+              <a id="fb_button" class="btn btn-lg btn-social btn-facebook" >
+                  <span class="fa fa-facebook"></span> Sign in with Facebook
               </a>
               <br>
-              <a class="btn btn-lg btn-social btn-google">
+              <a href="/registerUser?method=google" class="btn btn-lg btn-social btn-google">
                 <span class="fa fa-google"></span> Sign in with Google
               </a>
               <br>
-              <a class="btn btn-lg btn-social btn-github">
-                <span class="fa fa-github"></span> Sign in with Github
-              </a>
+                <a href="/registerUser?method=github" class="btn btn-lg btn-social btn-github">
+                  <span class="fa fa-github"></span> Sign in with Github
+                </a>
               <br>
           </div>
-          
+          <% include ../partials/facebook %>
       </form>
 <% include ../partials/footer %>
