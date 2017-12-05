@@ -6,7 +6,8 @@ var express = require("express"),
 var middleware = require("./middleware");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+
+app.use(express.static(__dirname + "/public")); // makes the folder available for communication to server and backend
 
 var config = require("./services"),
     indexRoutes = require("./routes");
@@ -15,8 +16,8 @@ firebase.initializeApp(config);
 
 app.use("/", indexRoutes);
 
-
-
-app.listen(process.env.PORT, process.env.IP, function() {
+app.listen(3030, function() {
     console.log("Server Started");
 });
+
+

@@ -4,6 +4,8 @@ var express = require("express"),
 
 var middleware = require("../middleware");
 
+var strategies = require("./data/schemes");
+
 router.get("/login", function(req, res) {
     var socVar;
     res.render("auth/login", { socVar: socVar, res: res });
@@ -48,11 +50,32 @@ router.get("/", function(req, res) {
 
 
 router.get("/register/:id", [middleware.isLoggedIn, middleware.isAuthenticatedUser], function(req, res) {
-    res.render("users/preferences", { user: firebase.auth().currentUser });
+    res.render("users/preferences", { users: firebase.auth().currentUser });
 });
 
 router.post("/register/:id", [middleware.isLoggedIn, middleware.isAuthenticatedUser], function(req, res) {
     res.render("users/preferences", { user: firebase.auth().currentUser });
+});
+/*
+    1. Check if user exists
+        a. If exists then log him in
+        b. If doesn't exist then redirect to register page
+            i. Before redirecting, add him to the user database
+*/
+router.get("/checkUser", function(req, res) {
+    switch (req.query.method) {
+        case 'facebook':
+            
+            break;
+        case 'github':
+
+            break;
+        case 'google':
+
+            break;
+        default:
+
+    }
 });
 
 module.exports = router;
