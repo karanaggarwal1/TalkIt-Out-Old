@@ -1,26 +1,21 @@
-var express = require("express"),
-    router = express.Router(),
-    firebase = require("firebase");
+const express = require("express"),
+      router = express.Router(),
+      firebase = require("firebase"),
+      passport = require("passport");
+
+const User = require("../models/user");
 
 var middleware = require("../middleware");
 
 var strategies = require("./data/schemes");
 
 router.get("/login", function(req, res) {
-    var socVar;
-    res.render("auth/login", { socVar: socVar, res: res });
+    res.render("auth/login");
 });
 
 router.post("/login", function(req, res) {
     var { emailAddress, password } = req.body.login;
-    firebase.auth().signInWithEmailAndPassword(emailAddress, password).
-    then(function(user) {
-        res.render("landing.ejs");
-    }).catch(function(error) {
-        console.log(error);
-        res.redirect("/login");
 
-    });
 });
 
 router.get("/register", function(req, res) {
@@ -28,19 +23,20 @@ router.get("/register", function(req, res) {
 });
 
 router.post("/register", function(req, res) {
-    var { emailAddress, password, firstName, lastName } = req.body.register;
-    firebase.auth().createUserWithEmailAndPassword(emailAddress, password).then((user) => {
-        user.updateProfile({
-            displayName: firstName + " " + lastName
-        }).then(function() {
-            firebase.auth().signInWithEmailAndPassword(emailAddress, password).then((user) => {
-                res.redirect("/register/" + user.uid);
-            })
-        }, function(error) {
-            console.log(error);
+    let { emailAddress, password, firstName, lastName } = req.body.register;
+    let newUser = new User({
+        username : emailAddress,
+        firstName : firstName,
+        lastName : lastName
+    });
+    User.register(newUser, password , function(err, user){
+        if(err){
+           console.log(err);
+           return res.redirect('/register');
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/");
         });
-    }).catch((error) => {
-        console.log(error);
     });
 });
 
@@ -65,7 +61,7 @@ router.post("/register/:id", [middleware.isLoggedIn, middleware.isAuthenticatedU
 router.get("/checkUser", function(req, res) {
     switch (req.query.method) {
         case 'facebook':
-            
+
             break;
         case 'github':
 
